@@ -1,0 +1,36 @@
+<mat-nav-list>
+  <ng-container *ngIf="!loggedInUser">
+    <a mat-list-item >
+      <mat-icon>lock_open</mat-icon>
+      <span class="nav-caption"
+            routerLink="/login"
+            (click)="onSidenavClose()">Login</span>
+    </a>
+    <a mat-list-item >
+      <mat-icon>folder</mat-icon>
+      <span class="nav-caption"
+            routerLink="/register"
+            (click)="onSidenavClose()">Register</span>
+    </a>
+  </ng-container>
+  <ng-container *ngIf="loggedInUser">
+    <a mat-list-item >
+      <mat-icon>home</mat-icon>
+      <span class="nav-caption"
+            routerLink="/"
+            (click)="onSidenavClose()">Home</span>
+    </a>
+    <a mat-list-item >
+      <mat-icon>home</mat-icon>
+      <span class="nav-caption"
+            routerLink="/"
+            (click)="onSidenavClose()">Home For Now</span>
+    </a>
+    <a mat-list-item (click)="onLogout()">
+        <mat-icon >lock</mat-icon>
+        <span class="nav-caption">Logout</span>
+    </a>
+  </ng-container>
+
+
+</mat-nav-list>

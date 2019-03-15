@@ -1,0 +1,11 @@
+<mat-sidenav-container>
+  <mat-sidenav mode="side" #sideNav>
+    <app-nav-side (closeSideNav)="sideNav.close()" ></app-nav-side>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <app-nav-header class="nav-header" (sidebarToggle)="sideNav.toggle()"></app-nav-header>
+    <main [@routeState]="getAnimationData(rOutlet)" style="overflow: hidden">
+      <router-outlet #rOutlet="outlet"></router-outlet>
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>
