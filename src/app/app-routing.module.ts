@@ -12,7 +12,7 @@ const routes: Routes = [
   {
     path: 'message',
     loadChildren: './message/message.module#MessageModule',
-    data: {animation: {page: 'flexPage'}}
+    data: {animation: {page: 'messagePage'}}
 
   }
 

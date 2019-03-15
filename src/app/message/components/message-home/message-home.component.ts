@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {MessageService} from '../../services/message.service';
 
 /**
  *
@@ -11,11 +12,17 @@ import {Component, OnInit} from '@angular/core';
 })
 export class MessageHomeComponent implements OnInit {
   leftNavOpen = true;
+  firstName: string;
 
-  constructor() {
+  constructor(private messageService: MessageService) {
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    const result = await this.messageService.getAllMessages();
+    if (result && result['Items']) {
+      this.firstName = result['Items'][0]['FullName'];
+
+    }
   }
 
   onLeftNavClose() {
