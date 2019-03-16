@@ -18,9 +18,9 @@ export class MessageHomeComponent implements OnInit {
   }
 
   async ngOnInit() {
-    const result = await this.messageService.getAllMessages();
+    const result = await this.messageService.getAccountExecs();
     if (result && result['Items']) {
-      this.firstName = result['Items'][0]['FullName'];
+      this.firstName = result['Items'][0]['name'];
 
     }
   }

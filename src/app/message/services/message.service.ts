@@ -12,13 +12,13 @@ export class MessageService {
    *
    * @returns test
    */
-  async getAllMessages(): Promise<any> {
+  async getAccountExecs(): Promise<any> {
 
-    const url = 'https://x8ggdptith.execute-api.us-east-2.amazonaws.com/Prod/MyResource?TableName=CONTACT' ;
+    const url = 'https://cc2w8knx6k.execute-api.us-east-2.amazonaws.com/Prod/MyResource' ;
     try {
       const data = await
         this.httpClient.get<any>(url).toPromise();
-      console.log('got messages', data);
+      console.log('got acct execs', data);
       return data;
 
     } catch (e) {

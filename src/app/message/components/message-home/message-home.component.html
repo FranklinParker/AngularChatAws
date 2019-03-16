@@ -1,7 +1,7 @@
 <div class="container">
   <div *ngIf="leftNavOpen" class="left-menu">
 
-    <button class="left-menu__button" mat-button>Add</button>
+    <button class="left-menu__button" mat-button>View Chats</button>
     <button class="left-menu__button" mat-button>Find</button>
     <button (click)="onLeftNavClose()"
             mat-icon-button
@@ -22,13 +22,11 @@
     </button>
   </div>
   <div class="content">
-    <div>
-      {{firstName}}
+    <div class="account-execs">
+      <div class="account-execs__name">
+        {{firstName}}
+      </div>
     </div>
-    <app-message-item [description]="'test'"></app-message-item>
-    <app-message-item [description]="'test1'"
-                   class="app-message-item-wide"></app-message-item>
-    <app-message-item [description]="'test3'"></app-message-item>
-    <app-message-item [description]="'test4'"></app-message-item>
+
   </div>
 </div>

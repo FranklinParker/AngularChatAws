@@ -109,13 +109,19 @@
 
 }
 
-app-message-item {
-  margin-top: .5rem;
-  margin-left: 4px;
-  min-width: 33%;
-  height: 10vh;
+.account-execs {
+  flex: 1;
+  height: 95vh;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background-color: lightgrey;
+  &__name{
+    font-size: 3rem;
+    align-self: center;
+  }
 }
 
 .app-message-item-wide{
-  flex: 1 ;
+  flex: 1;
 }
