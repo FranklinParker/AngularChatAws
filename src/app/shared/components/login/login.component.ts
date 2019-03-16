@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {LoginService} from '../../services/login.service';
 
 @Component({
@@ -9,11 +9,14 @@ import {LoginService} from '../../services/login.service';
 export class LoginComponent implements OnInit {
   name: string;
   userType: string;
-  constructor(private loginService: LoginService) { }
+  constructor(private loginService: LoginService) {
+  }
 
   ngOnInit() {
   }
-  onSubmit(){
+
+  onSubmit() {
+    this.loginService.login(this.name, this.userType);
 
   }
 }

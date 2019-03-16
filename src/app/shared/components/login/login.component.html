@@ -1,13 +1,13 @@
-<mat-card>
-  <mat-card-content>
+<div class="container">
+  <mat-card>
+    <mat-card-content>
 
       <form (submit)="onSubmit(form)"
             fxLayout="column"
             fxLayoutAlign="center center"
             fxLayoutGap="10px"
             #form="ngForm">
-
-        <mat-form-field>
+        <mat-form-field class="name">
           <input matInput [(ngModel)]="name"
                  name="name"
                  #emailField="ngModel"
@@ -35,5 +35,7 @@
         </mat-action-row>
       </form>
 
-  </mat-card-content>
-</mat-card>
+    </mat-card-content>
+  </mat-card>
+
+</div>

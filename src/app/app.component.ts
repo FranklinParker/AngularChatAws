@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 import {routeStateTrigger} from './routingAnimations';
 import {LoginService} from './shared/services/login.service';
+import {User} from './shared/models/user';
 
 @Component({
   selector: 'app-root',
@@ -11,12 +12,26 @@ import {LoginService} from './shared/services/login.service';
     routeStateTrigger
   ]
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'AngularMaterialStyling';
+  user: User;
 
-  constructor(private loginService: LoginService){
+  constructor(private loginService: LoginService) {
 
   }
+
+  get loggedIn() {
+    return this.user;
+  }
+
+  ngOnInit(): void {
+    this.loginService.getLoggedInUserAsObservable()
+      .subscribe((user: User) => {
+        this.user = user;
+
+      });
+  }
+
   getAnimationData(outlet: RouterOutlet) {
     const routeData = outlet.activatedRouteData['animation'];
     if (!routeData) {
@@ -24,11 +39,6 @@ export class AppComponent {
     }
     return routeData['page'];
   }
-
-  get loggedIn() {
-    return this.loginService.getLoggedInUser();
-  }
-
 
 
 }
