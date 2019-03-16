@@ -8,7 +8,7 @@ export class MessageService {
   constructor(private httpClient: HttpClient) { }
 
   /**
-   * get contractor records and number of records
+   * get Get all account execs
    *
    * @returns test
    */

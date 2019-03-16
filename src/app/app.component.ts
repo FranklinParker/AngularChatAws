@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 import {routeStateTrigger} from './routingAnimations';
+import {LoginService} from './shared/services/login.service';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +14,9 @@ import {routeStateTrigger} from './routingAnimations';
 export class AppComponent {
   title = 'AngularMaterialStyling';
 
+  constructor(private loginService: LoginService){
+
+  }
   getAnimationData(outlet: RouterOutlet) {
     const routeData = outlet.activatedRouteData['animation'];
     if (!routeData) {
@@ -20,5 +24,11 @@ export class AppComponent {
     }
     return routeData['page'];
   }
+
+  get loggedIn() {
+    return this.loginService.getLoggedInUser();
+  }
+
+
 
 }

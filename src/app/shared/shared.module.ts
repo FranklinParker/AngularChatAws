@@ -4,17 +4,25 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {HttpClientModule} from '@angular/common/http';
 
 import {MaterialModule} from '../material.module';
+import { LoginComponent } from './components/login/login.component';
+import {FormsModule} from '@angular/forms';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    LoginComponent
+  ],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule,
+    MaterialModule,
+    FlexLayoutModule
   ],
   exports: [
     MaterialModule,
     FlexLayoutModule,
-    HttpClientModule
+    HttpClientModule,
+    LoginComponent
   ]
 })
 export class SharedModule {
