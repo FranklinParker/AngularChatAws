@@ -1,6 +1,13 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 
+/**
+ *
+ * https://blog.panoply.io/dynamodb-vs-mongodb
+ * https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Streams.Lambda.Tutorial.html
+ * https://github.com/simalexan/dynamodb-lambda-publisher-sns
+ */
+
 @Injectable({
   providedIn: 'root'
 })
