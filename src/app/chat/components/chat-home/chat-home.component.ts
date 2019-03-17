@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ChatService} from '../../services/chat.service';
+import {ChatSession} from '../../models/chatSession';
 
 /**
  *
@@ -12,17 +13,14 @@ import {ChatService} from '../../services/chat.service';
 })
 export class ChatHomeComponent implements OnInit {
   leftNavOpen = true;
-  firstName: string;
+  chatSessions: ChatSession[] = [];
 
   constructor(private chatService: ChatService) {
   }
 
   async ngOnInit() {
-    const result = await this.chatService.getActiveChatSessions();
-    if (result && result['Items']) {
-      this.firstName = result['Items'][0]['chat'];
+    this.chatSessions = await this.chatService.getActiveChatSessions();
 
-    }
   }
 
   onLeftNavClose() {

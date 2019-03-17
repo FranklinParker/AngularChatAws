@@ -22,11 +22,7 @@
     </button>
   </div>
   <div class="content">
-    <div class="account-execs">
-      <div class="account-execs__name">
-        {{firstName}}
-      </div>
-    </div>
-
+    <app-chat-session *ngFor="let chatSession of chatSessions" [chatSession]="chatSession">
+    </app-chat-session>
   </div>
 </div>

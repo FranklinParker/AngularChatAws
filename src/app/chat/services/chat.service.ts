@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {ChatSession} from '../models/chatSession';
@@ -14,32 +14,32 @@ import {ChatSession} from '../models/chatSession';
   providedIn: 'root'
 })
 export class ChatService {
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+  }
 
   /**
-   * get Get all account execs
+   * get Get all active chat sessions
    *
    * @returns test
    */
   async getActiveChatSessions(): Promise<any> {
 
-    const url = 'https://02fmrhxod5.execute-api.us-east-2.amazonaws.com/Prod/MyResource' ;
+    const url = 'https://02fmrhxod5.execute-api.us-east-2.amazonaws.com/Prod/MyResource';
     try {
       const chatSessions: ChatSession[] = await
         this.httpClient.get<any>(url).pipe(
           map(result => {
             const chatSess: ChatSession[] = [];
-          console.log('result', result);
-          result['Items'].forEach(item => {
-            chatSess.push({
-              id: item['id'],
-              chatResponderName: item['chatResponderName'],
-              chatInitiatorName: item['chatInitiatorName'],
-              chatSessionActive: item['chatSessionActive']
+            result['Items'].forEach(item => {
+              chatSess.push({
+                id: item['id'],
+                chatResponderName: item['chatResponderName'],
+                chatInitiatorName: item['chatInitiatorName'],
+                chatSessionActive: item['chatSessionActive']
+              });
             });
-          });
-          return chatSess;
-        })).toPromise();
+            return chatSess;
+          })).toPromise();
       console.log('got activeChat sessions', chatSessions);
       return chatSessions;
 
