@@ -12,5 +12,8 @@ export class ChatSessionComponent implements OnInit {
 
   ngOnInit() {
   }
+  onAnswerChat() {
+    alert('chat Session:' + this.chatSession.id);
+  }
 
 }

@@ -1,5 +1,11 @@
 <mat-card>
   <mat-card-content>
-    {{chatSession.chatInitiatorName}}
+    <p>Chat request from:</p>
+    <p>{{chatSession.chatInitiatorName}}</p>
+    <mat-action-row>
+      <button mat-raised-button (click)="onAnswerChat()">
+        Accept Chat
+      </button>
+    </mat-action-row>
   </mat-card-content>
 </mat-card>
