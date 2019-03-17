@@ -8,8 +8,8 @@ import {ChatSession} from '../../models/chatSession';
   styleUrls: ['./chat-message.component.scss']
 })
 export class ChatMessageComponent implements OnInit {
-  messages='Begin Chat';
-  message:string;
+  messages = 'Begin Chat';
+  message: string;
 
   constructor(@Inject(MAT_DIALOG_DATA)
               public data: { chatSession: ChatSession},
@@ -19,6 +19,7 @@ export class ChatMessageComponent implements OnInit {
   }
   onSend() {
     this.messages += '\n' + this.message;
+    this.message = '';
   }
 
 }
