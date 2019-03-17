@@ -10,9 +10,9 @@ const routes: Routes = [
 
   },
   {
-    path: 'message',
-    loadChildren: './message/message.module#MessageModule',
-    data: {animation: {page: 'messagePage'}}
+    path: 'chat',
+    loadChildren: './chat/chat.module#ChatModule',
+    data: {animation: {page: 'chatHomePage'}}
 
   }
 
