@@ -30,7 +30,7 @@ export class ChatSessionComponent implements OnInit {
 
   async onAnswerChat() {
     this.chatSession.chatResponderName = this.loggedInUser.name;
-    const resp = await this.chatService.takeChat(this.chatSession);
+    const resp = await this.chatService.requestChat(this.loggedInUser.name);
     this.matDialog.open(ChatMessageComponent, {
       data: {chatSession: this.chatSession},
       width: '85%',

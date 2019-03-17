@@ -69,4 +69,22 @@ export class ChatService {
 
   }
 
+
+
+  public async requestChat(name: string) {
+    try {
+      const response = await
+        this.httpClient.post<any>(this.url,
+          {
+            chatInitiatorName: name
+          }).toPromise();
+      return response;
+
+    } catch (e) {
+      console.log('error getting messages', e);
+      return [];
+    }
+
+
+  }
 }
