@@ -14,6 +14,8 @@ import {ChatSession} from '../models/chatSession';
   providedIn: 'root'
 })
 export class ChatService {
+  url = 'https://02fmrhxod5.execute-api.us-east-2.amazonaws.com/Prod/MyResource';
+
   constructor(private httpClient: HttpClient) {
   }
 
@@ -22,12 +24,11 @@ export class ChatService {
    *
    * @returns test
    */
-  async getActiveChatSessions(): Promise<any> {
+  public async getActiveChatSessions(): Promise<any> {
 
-    const url = 'https://02fmrhxod5.execute-api.us-east-2.amazonaws.com/Prod/MyResource';
     try {
       const chatSessions: ChatSession[] = await
-        this.httpClient.get<any>(url).pipe(
+        this.httpClient.get<any>(this.url).pipe(
           map(result => {
             const chatSess: ChatSession[] = [];
             result['Items'].forEach(item => {
@@ -42,6 +43,23 @@ export class ChatService {
           })).toPromise();
       console.log('got activeChat sessions', chatSessions);
       return chatSessions;
+
+    } catch (e) {
+      console.log('error getting messages', e);
+      return [];
+    }
+
+  }
+
+  public async takeChat(chatSession: ChatSession) {
+    try {
+      const response = await
+        this.httpClient.put<any>(this.url,
+          {
+            id: chatSession.id,
+            chatResponderName: chatSession.chatResponderName
+          }).toPromise();
+      return response;
 
     } catch (e) {
       console.log('error getting messages', e);
