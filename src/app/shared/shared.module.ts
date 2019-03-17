@@ -22,7 +22,8 @@ import {FormsModule} from '@angular/forms';
     MaterialModule,
     FlexLayoutModule,
     HttpClientModule,
-    LoginComponent
+    LoginComponent,
+    FormsModule
   ]
 })
 export class SharedModule {

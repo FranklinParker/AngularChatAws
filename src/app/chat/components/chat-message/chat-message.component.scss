@@ -8,4 +8,25 @@
     background-color: rgba(225, 225, 225, 0.82);
     width: 100%;
   }
+  &__text-container{
+    display: flex;
+    margin-top: 2rem;
+    width: 100%;
+  }
+  &__text{
+    flex: 1 1 80%;
+    border:none;
+    height: 30px;
+    font-size: 1.5rem;
+    line-height: 30px;
+    background-color: rgba(225, 225, 225, 0.82);
+  }
+  &__button{
+    flex: 1;
+    margin-left: 5px;
+    border:none;
+    height: 30px;
+    font-size: 1.5rem;
+    line-height: 30px;
+  }
 }
