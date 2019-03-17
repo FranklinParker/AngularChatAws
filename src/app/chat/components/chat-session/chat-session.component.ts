@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {ChatSession} from '../../models/chatSession';
+import {MatDialog} from '@angular/material';
+import {ChatMessageComponent} from '../chat-message/chat-message.component';
 
 @Component({
   selector: 'app-chat-session',
@@ -8,12 +10,19 @@ import {ChatSession} from '../../models/chatSession';
 })
 export class ChatSessionComponent implements OnInit {
   @Input() chatSession: ChatSession;
-  constructor() { }
+  constructor( private matDialog: MatDialog) {
+
+  }
 
   ngOnInit() {
   }
   onAnswerChat() {
-    alert('chat Session:' + this.chatSession.id);
+    this.matDialog.open(ChatMessageComponent, {
+      data: { isAddNew: true },
+      width: '85%',
+      disableClose: true
+    });
+
   }
 
 }
