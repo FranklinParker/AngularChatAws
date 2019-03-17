@@ -18,7 +18,7 @@ export class ChatSessionComponent implements OnInit {
   }
   onAnswerChat() {
     this.matDialog.open(ChatMessageComponent, {
-      data: { isAddNew: true },
+      data: { chatSession: this.chatSession },
       width: '85%',
       disableClose: true
     });
