@@ -73,7 +73,7 @@ export class ChatService {
 
 
 
-  public async requestChat(name: string) {
+  public async requestChat(name: string, uid: string) {
     const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
     const options =  {
       headers: headers
@@ -82,7 +82,8 @@ export class ChatService {
       const response = await
         this.httpClient.post<any>(this.url,
           {
-            chatInitiatorName: name
+            chatInitiatorName: name,
+            id: uid
           }, options).toPromise();
       return response;
 

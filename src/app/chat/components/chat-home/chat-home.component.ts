@@ -1,4 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
+import { UUID } from 'angular2-uuid';
+
 import {ChatService} from '../../services/chat.service';
 import {ChatSession} from '../../models/chatSession';
 import {User} from '../../../shared/models/user';
@@ -57,7 +59,11 @@ export class ChatHomeComponent implements OnInit, OnDestroy {
   onLeftNavClose() {
     this.leftNavOpen = false;
   }
-
+  async onRequestChat() {
+    const uid = UUID.UUID();
+    alert('UUID:' + uid);
+    const resp = await this.chatService.requestChat(this.user.name, uid);
+  }
   onLeftNavOpen() {
     this.leftNavOpen = true;
   }

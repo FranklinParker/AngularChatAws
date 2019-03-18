@@ -78,7 +78,7 @@ exports.handler = (event, context, callback) => {
             const chatSession = JSON.parse(event.body);
             let newChatSession = {
                 Item: {
-                    "id": uuid.v1(),
+                    "id":  chatSession.id,
                     "chatInitiatorName": chatSession.chatInitiatorName,
                     "chatResponderName": "NONE",
                     "chatSessionActive": false
