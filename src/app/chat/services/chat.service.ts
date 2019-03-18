@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {ChatSession} from '../models/chatSession';
 import {User} from '../../shared/models/user';
+import {ChatMessage} from '../models/chatMessage';
 
 /**
  *
@@ -125,5 +126,21 @@ export class ChatService {
     }
 
 
+  }
+
+  public async sendChatMessages(chatMessages: ChatMessage[], chatSessionId: string){
+    try {
+      const response = await
+        this.httpClient.put<any>(this.url,
+          {
+            id: chatSessionId,
+            messages: chatMessages
+          }).toPromise();
+      return response;
+
+    } catch (e) {
+      console.log('error sending messages', e);
+      return [];
+    }
   }
 }
