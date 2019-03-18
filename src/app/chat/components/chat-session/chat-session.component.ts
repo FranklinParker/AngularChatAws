@@ -26,7 +26,10 @@ export class ChatSessionComponent implements OnInit {
   async onAnswerChat() {
     const resp = await this.chatService.takeChat(this.chatSession, this.user);
     this.matDialog.open(ChatMessageComponent, {
-      data: {chatSession: this.chatSession},
+      data: {
+        chatSession: this.chatSession,
+        isAccountManager: true
+      },
       width: '85%',
       disableClose: true
     });

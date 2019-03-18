@@ -12,7 +12,10 @@ export class ChatMessageComponent implements OnInit {
   message: string;
 
   constructor(@Inject(MAT_DIALOG_DATA)
-              public data: { chatSession: ChatSession },
+              public data: {
+                chatSession: ChatSession,
+                isAccountManager: boolean
+              },
               public dialogRef: MatDialogRef<any>) {
   }
 

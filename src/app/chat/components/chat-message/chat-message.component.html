@@ -1,7 +1,15 @@
 <div class="container">
-  <h2 class="container__header">
-    Chat with: {{data.chatSession.chatInitiatorName}}
-  </h2>
+  <ng-container *ngIf="data.isAccountManager">
+    <h2 class="container__header">
+      Chat with: {{data.chatSession.chatInitiatorName}}
+    </h2>
+  </ng-container>
+  <ng-container *ngIf="!data.isAccountManager">
+    <h2 class="container__header">
+      Your Chat Responder: {{data.chatSession.chatResponderName}}
+    </h2>
+  </ng-container>
+
   <textarea  class="container__messages"
              [(ngModel)]="messages"
              rows="10"

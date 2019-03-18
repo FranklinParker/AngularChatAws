@@ -56,7 +56,7 @@ export class ChatHomeComponent implements OnInit, OnDestroy {
     setTimeout(async () => {
       this.chatSessions = await this.chatService.getActiveChatSessions();
       this.repollChatSessions();
-    }, 2000);
+    }, 4000);
 
   }
 
@@ -74,11 +74,13 @@ export class ChatHomeComponent implements OnInit, OnDestroy {
   pollChatSession() {
     setTimeout(async () => {
       const chatSess: ChatSession = await this.chatService.getChatSessionById(this.requestChatUid);
-      console.log('comp', chatSess);
       if (chatSess.chatSessionActive) {
         this.requestChatUid = undefined;
         this.matDialog.open(ChatMessageComponent, {
-          data: {chatSession: chatSess},
+          data: {
+            chatSession: chatSess,
+            isAccountManager: false
+          },
           width: '85%',
           disableClose: true
         });
