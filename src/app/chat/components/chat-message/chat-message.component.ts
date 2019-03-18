@@ -36,9 +36,17 @@ export class ChatMessageComponent implements OnInit {
     setTimeout(async () => {
       const newChatSess = await this.chatService.getChatSessionById(this.chatSession.id);
       console.log('got new Chat Session messages', newChatSess.messages);
+      this.addNewMessages(newChatSess.messages);
       this.pollChatSession();
 
     }, 5000);
+  }
+
+  addNewMessages(messages: ChatMessage[]) {
+    messages.forEach((chatMessage: ChatMessage) => {
+      this.messages += '\n' + chatMessage.sender + ': ' +
+        chatMessage.message;
+    });
   }
 
   async onSend() {
