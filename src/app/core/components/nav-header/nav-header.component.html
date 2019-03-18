@@ -30,7 +30,8 @@
     <ng-container *ngIf="loggedInUser">
       <ul fxLayout fxLayoutGap="10px" class="navigation-list-items">
         <li><a routerLink="/" mat-button
-               routerLinkActive="mat-accent">Home</a>
+               routerLinkActive="mat-accent"
+               [routerLinkActiveOptions]="{exact:true}">Home</a>
         </li>
       </ul>
       <ul fxLayout fxLayoutGap="10px" class="navigation-list-items">
