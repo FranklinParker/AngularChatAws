@@ -6,6 +6,8 @@ import {ChatSession} from '../../models/chatSession';
 import {User} from '../../../shared/models/user';
 import {LoginService} from '../../../shared/services/login.service';
 import {Subscription} from 'rxjs';
+import {MatDialog} from '@angular/material';
+import {ChatMessageComponent} from '../chat-message/chat-message.component';
 
 /**
  *
@@ -25,7 +27,8 @@ export class ChatHomeComponent implements OnInit, OnDestroy {
   requestChatUid: string;
 
   constructor(private chatService: ChatService,
-              private loginService: LoginService) {
+              private loginService: LoginService,
+              private matDialog: MatDialog) {
   }
 
   get isAccountExec() {
@@ -67,11 +70,22 @@ export class ChatHomeComponent implements OnInit, OnDestroy {
       this.requestChatUid);
     this.pollChatSession();
   }
+
   pollChatSession() {
     setTimeout(async () => {
-      const chatSess = await this.chatService.getChatSessionById(this.requestChatUid);
+      const chatSess: ChatSession = await this.chatService.getChatSessionById(this.requestChatUid);
       console.log('comp', chatSess);
-      this.pollChatSession();
+      if (chatSess.chatSessionActive) {
+        this.requestChatUid = undefined;
+        this.matDialog.open(ChatMessageComponent, {
+          data: {chatSession: chatSess},
+          width: '85%',
+          disableClose: true
+        });
+      } else {
+        this.pollChatSession();
+      }
+
     }, 5000);
   }
 
