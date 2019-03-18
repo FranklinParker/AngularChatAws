@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {ChatSession} from '../models/chatSession';
 
@@ -14,7 +14,8 @@ import {ChatSession} from '../models/chatSession';
   providedIn: 'root'
 })
 export class ChatService {
-  url = 'https://02fmrhxod5.execute-api.us-east-2.amazonaws.com/Prod/MyResource';
+  url = 'https://npkkkpl1gi.execute-api.us-east-2.amazonaws.com/dev/serverlessrepo-chatSessio-microservicehttpendpoint-4V46OS50EN84'
+  //url = 'https://npkkkpl1gi.execute-api.us-east-2.amazonaws.com/default/serverlessrepo-chatSessio-microservicehttpendpoint-4V46OS50EN84';
 
   constructor(private httpClient: HttpClient) {
   }
@@ -72,12 +73,16 @@ export class ChatService {
 
 
   public async requestChat(name: string) {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+    const options =  {
+      headers: headers
+    };
     try {
       const response = await
         this.httpClient.post<any>(this.url,
           {
             chatInitiatorName: name
-          }).toPromise();
+          }, options).toPromise();
       return response;
 
     } catch (e) {
