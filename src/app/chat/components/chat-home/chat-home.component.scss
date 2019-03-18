@@ -110,7 +110,7 @@
 
 .content-client {
   margin-top: 10px;
-  margin-left: 20px;
+  margin-left: 25%;
   display: flex;
   flex: 1;
   height: 110vh;
@@ -125,6 +125,11 @@
   &__request-chat-btn{
     margin-left: 10px;
     font-size: 2rem;
+  }
+  &__waiting{
+    font-size: 3rem;
+    color: green;
+    margin-left: 20px;
   }
 
 
