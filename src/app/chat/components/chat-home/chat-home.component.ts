@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import { UUID } from 'angular2-uuid';
+import {UUID} from 'angular2-uuid';
 
 import {ChatService} from '../../services/chat.service';
 import {ChatSession} from '../../models/chatSession';
@@ -22,6 +22,7 @@ export class ChatHomeComponent implements OnInit, OnDestroy {
   user: User;
   chatSessions: ChatSession[] = [];
   sub: Subscription;
+  requestChatUid: string;
 
   constructor(private chatService: ChatService,
               private loginService: LoginService) {
@@ -41,7 +42,7 @@ export class ChatHomeComponent implements OnInit, OnDestroy {
       .subscribe((user: User) => {
         this.user = user;
         if (user.userType === this.ACCT_EXEC) {
-           this.repollChatSessions();
+          this.repollChatSessions();
         }
         console.log('user', user);
       });
@@ -59,11 +60,21 @@ export class ChatHomeComponent implements OnInit, OnDestroy {
   onLeftNavClose() {
     this.leftNavOpen = false;
   }
+
   async onRequestChat() {
-    const uid = UUID.UUID();
-    alert('UUID:' + uid);
-    const resp = await this.chatService.requestChat(this.user.name, uid);
+    this.requestChatUid = UUID.UUID();
+    const resp = await this.chatService.requestChat(this.user.name,
+      this.requestChatUid);
+    this.pollChatSession();
   }
+  pollChatSession() {
+    setTimeout(async () => {
+      const chatSess = await this.chatService.getChatSessionById(this.requestChatUid);
+      console.log('comp', chatSess);
+      this.pollChatSession();
+    }, 5000);
+  }
+
   onLeftNavOpen() {
     this.leftNavOpen = true;
   }

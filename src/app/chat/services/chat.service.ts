@@ -53,6 +53,39 @@ export class ChatService {
 
   }
 
+  /**
+   * get Get all active chat sessions
+   *
+   * @returns test
+   */
+  public async getChatSessionById(id: string): Promise<ChatSession> {
+
+    try {
+      const chatSession: any = await
+        this.httpClient.get<ChatSession>(this.url + `?id=${id}`).pipe(
+          map(result => {
+            console.log('result', result);
+            const item = result['Item'];
+            const chatSess: ChatSession = {
+              id: item['id'],
+              chatResponderName: item['chatResponderName'],
+              chatInitiatorName: item['chatInitiatorName'],
+              chatSessionActive: item['chatSessionActive'],
+              messages: item['messages']
+            };
+            return chatSess;
+          })).toPromise();
+      console.log('got chat session', chatSession);
+      return chatSession;
+
+    } catch (e) {
+      console.log('error getting chat session', e);
+      return undefined;
+    }
+
+  }
+
+
   public async takeChat(chatSession: ChatSession, user: User) {
     try {
       const response = await
@@ -72,10 +105,9 @@ export class ChatService {
   }
 
 
-
   public async requestChat(name: string, uid: string) {
     const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
-    const options =  {
+    const options = {
       headers: headers
     };
     try {

@@ -1,11 +1,10 @@
 import {Component, OnInit, Input, OnDestroy} from '@angular/core';
-import {ChatSession} from '../../models/chatSession';
 import {MatDialog} from '@angular/material';
+
+import {ChatSession} from '../../models/chatSession';
 import {ChatMessageComponent} from '../chat-message/chat-message.component';
-import {LoginService} from '../../../shared/services/login.service';
 import {User} from '../../../shared/models/user';
 import {ChatService} from '../../services/chat.service';
-import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-chat-session',

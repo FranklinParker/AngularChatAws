@@ -33,10 +33,18 @@
 
     </div>
     <div class="content-client" *ngIf="!isAccountExec">
-        <h3 *ngIf="user" class="content-client__title">Welcome {{user.name}}</h3>
-        <button (click)="onRequestChat()"
-                mat-raised-button class="content-client__request-chat-btn">
-            Request Chat</button>
+        <ng-container *ngIf="!requestChatUid">
+            <h3 *ngIf="user" class="content-client__title">Welcome {{user.name}}</h3>
+            <button (click)="onRequestChat()"
+                    mat-raised-button class="content-client__request-chat-btn">
+                Request Chat
+            </button>
+        </ng-container>
+        <ng-container *ngIf="requestChatUid">
+            <mat-spinner></mat-spinner>
+            <p>Waiting for Chat to be accepted</p>
+        </ng-container>
+
     </div>
 
 </div>
