@@ -3,4 +3,5 @@ export interface ChatSession {
   chatInitiatorName: string;
   chatResponderName: string;
   chatSessionActive: boolean;
+  messages: any;
 }

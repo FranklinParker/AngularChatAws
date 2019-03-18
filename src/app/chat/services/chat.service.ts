@@ -36,7 +36,8 @@ export class ChatService {
                 id: item['id'],
                 chatResponderName: item['chatResponderName'],
                 chatInitiatorName: item['chatInitiatorName'],
-                chatSessionActive: item['chatSessionActive']
+                chatSessionActive: item['chatSessionActive'],
+                messages: item['messages']
               });
             });
             return chatSess;

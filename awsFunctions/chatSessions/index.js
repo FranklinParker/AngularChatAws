@@ -81,15 +81,7 @@ exports.handler = (event, context, callback) => {
                     "id": uuid.v1(),
                     "chatInitiatorName": chatSession.chatInitiatorName,
                     "chatResponderName": "NONE",
-                    "chatSessionActive": false,
-                    // "messages": [
-                    //     { "text":"this is test",
-                    //         "author": chatSession.chatInitiatorName,
-                    //     },
-                    //     { "text":"this is test number",
-                    //         "author": chatSession.chatInitiatorName,
-                    //     }
-                    // ]
+                    "chatSessionActive": false
                 },
                 TableName: "ChatSessions"
             };
@@ -97,20 +89,39 @@ exports.handler = (event, context, callback) => {
             break;
         case 'PUT':
             const chatSessionUpdate = JSON.parse(event.body);
-            let updateChatSession = {
-                Key:{
-                    "id": chatSessionUpdate.id,
-                },
-                UpdateExpression: "set chatResponderName = :responder, chatSessionActive=:active",
-                ExpressionAttributeValues:{
-                    ":responder":chatSessionUpdate.chatResponderName,
-                    ":active":true
-                },
-                TableName: "ChatSessions"
-            };
+
+            if( chatSessionUpdate.messages){
+                console.log('update to chat messages', chatSessionUpdate);
+
+                let updateChatSessionMessages = {
+                    Key:{
+                        "id": chatSessionUpdate.id,
+                    },
+                    UpdateExpression: "set messages = :messages",
+                    ExpressionAttributeValues:{
+                        ":messages":chatSessionUpdate.messages
+                    },
+                    TableName: "ChatSessions"
+                };
+                dynamo.updateItem(updateChatSessionMessages, done);
 
 
-            dynamo.updateItem(updateChatSession, done);
+
+            } else {
+                let updateChatSession = {
+                    Key:{
+                        "id": chatSessionUpdate.id,
+                    },
+                    UpdateExpression: "set chatResponderName = :responder, chatSessionActive=:active",
+                    ExpressionAttributeValues:{
+                        ":responder":chatSessionUpdate.chatResponderName,
+                        ":active":true
+                    },
+                    TableName: "ChatSessions"
+                };
+                dynamo.updateItem(updateChatSession, done);
+
+            }
             break;
         default:
             done(new Error(`Unsupported method "${event.httpMethod}"`));
