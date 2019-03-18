@@ -26,10 +26,13 @@ exports.handler = (event, context, callback) => {
         body: err ? err.message : JSON.stringify(res),
         headers: {
             'Content-Type': 'application/json',
+            "Access-Control-Allow-Methods": "DELETE, GET, HEAD, OPTIONS, PATCH, POST, PUT",
             "Access-Control-Allow-Origin": "*"
+            // "Access-Control-Allow-Credentials" : true,
+            // "Access-Control-Allow-Headers":'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'
         },
     });
-    
+
     /**
      *
      */
@@ -37,7 +40,7 @@ exports.handler = (event, context, callback) => {
         let body;
         if(err){
             body= err.message;
-            
+
         } else{
             console.log('res', res);
             let filteredItems = res.Items.filter(item=> !item.chatSessionActive);
@@ -50,6 +53,7 @@ exports.handler = (event, context, callback) => {
             body: body,
             headers: {
                 'Content-Type': 'application/json',
+                //   "Access-Control-Allow-Methods": "DELETE, GET, HEAD, OPTIONS, PATCH, POST, PUT",
                 "Access-Control-Allow-Origin": "*"
             },
         });
@@ -57,11 +61,11 @@ exports.handler = (event, context, callback) => {
 
     switch (event.httpMethod) {
         case 'DELETE':
-           const recordDel = JSON.parse(event.body);
-           let paramsDel = {
+            const recordDel = JSON.parse(event.body);
+            let paramsDel = {
                 TableName: "ChatSessions",
                 Key: {
-                "id": recordDel.id,
+                    "id": recordDel.id,
                 }
             };
             dynamo.deleteItem(paramsDel, done);
@@ -87,7 +91,7 @@ exports.handler = (event, context, callback) => {
                     //     }
                     // ]
                 },
-                    TableName: "ChatSessions"
+                TableName: "ChatSessions"
             };
             dynamo.putItem(newChatSession, done);
             break;
@@ -95,13 +99,13 @@ exports.handler = (event, context, callback) => {
             const chatSessionUpdate = JSON.parse(event.body);
             let updateChatSession = {
                 Key:{
-                     "id": chatSessionUpdate.id,
+                    "id": chatSessionUpdate.id,
                 },
                 UpdateExpression: "set chatResponderName = :responder, chatSessionActive=:active",
                 ExpressionAttributeValues:{
                     ":responder":chatSessionUpdate.chatResponderName,
                     ":active":true
-                 },
+                },
                 TableName: "ChatSessions"
             };
 

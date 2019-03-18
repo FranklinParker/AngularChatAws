@@ -15,7 +15,6 @@ import {ChatSession} from '../models/chatSession';
 })
 export class ChatService {
   url = 'https://npkkkpl1gi.execute-api.us-east-2.amazonaws.com/dev/serverlessrepo-chatSessio-microservicehttpendpoint-4V46OS50EN84'
-  //url = 'https://npkkkpl1gi.execute-api.us-east-2.amazonaws.com/default/serverlessrepo-chatSessio-microservicehttpendpoint-4V46OS50EN84';
 
   constructor(private httpClient: HttpClient) {
   }
