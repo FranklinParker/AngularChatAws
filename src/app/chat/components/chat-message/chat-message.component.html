@@ -10,11 +10,13 @@
 
   </textarea>
   <div class="container__text-container">
-    <input type="text"
-           (keyup.enter)="onSend()"
-           [(ngModel)]="message"
-           class="container__text">
+    <input  matInput
+            name="message"
+            placeholder="Enter Message"
+            (keyup.enter)="onSend()"
+           [(ngModel)]="message">
     <button mat-raised-button
+            [disabled]="!sendAllowed"
             (click)="onSend()"
             class="container__button">Send</button>
   </div>

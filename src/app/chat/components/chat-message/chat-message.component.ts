@@ -12,14 +12,24 @@ export class ChatMessageComponent implements OnInit {
   message: string;
 
   constructor(@Inject(MAT_DIALOG_DATA)
-              public data: { chatSession: ChatSession},
-              public dialogRef: MatDialogRef<any>) { }
+              public data: { chatSession: ChatSession },
+              public dialogRef: MatDialogRef<any>) {
+  }
+
+  get sendAllowed() {
+    return this.message && this.message.length > 0;
+  }
 
   ngOnInit() {
   }
+
   onSend() {
-    this.messages += '\n' + this.message;
-    this.message = '';
+
+    if (this.message && this.message.length > 0) {
+      this.messages += '\n' + this.message;
+      this.message = '';
+    }
+
   }
 
 }
