@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {map} from 'rxjs/operators';
+
 import {ChatSession} from '../models/chatSession';
 import {User} from '../../shared/models/user';
 import {ChatMessage} from '../models/chatMessage';
@@ -44,7 +45,6 @@ export class ChatService {
             });
             return chatSess;
           })).toPromise();
-      console.log('got activeChat sessions', chatSessions);
       return chatSessions;
 
     } catch (e) {
@@ -76,7 +76,7 @@ export class ChatService {
             };
             return chatSess;
           })).toPromise();
-      console.log('got chat session', chatSession);
+      // console.log('got chat session', chatSession);
       return chatSession;
 
     } catch (e) {
@@ -128,19 +128,35 @@ export class ChatService {
 
   }
 
-  public async sendChatMessages(chatMessages: ChatMessage[], chatSessionId: string){
+  public async sendChatMessages(chatMessages: ChatMessage[], chatSessionId: string) {
     try {
+      const body = {
+        id: chatSessionId,
+        messages: this.getMessages(chatMessages),
+      };
+      console.log('body', body);
+
       const response = await
         this.httpClient.put<any>(this.url,
-          {
-            id: chatSessionId,
-            messages: chatMessages
-          }).toPromise();
+          body).toPromise();
       return response;
 
     } catch (e) {
       console.log('error sending messages', e);
-      return [];
+      return undefined;
     }
+  }
+
+  private getMessages(chatMessages: ChatMessage[]) {
+    const messages = [];
+    chatMessages.forEach((chatMessage: ChatMessage) => {
+      messages.push({
+        id: chatMessage.id,
+        sender: chatMessage.sender,
+        message: chatMessage.message
+      });
+    });
+    return messages;
+
   }
 }

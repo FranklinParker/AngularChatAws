@@ -1,12 +1,13 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
+import {MatDialog} from '@angular/material';
 import {UUID} from 'angular2-uuid';
+import {Subscription} from 'rxjs';
+
 
 import {ChatService} from '../../services/chat.service';
 import {ChatSession} from '../../models/chatSession';
 import {User} from '../../../shared/models/user';
 import {LoginService} from '../../../shared/services/login.service';
-import {Subscription} from 'rxjs';
-import {MatDialog} from '@angular/material';
 import {ChatMessageComponent} from '../chat-message/chat-message.component';
 
 /**
@@ -45,17 +46,17 @@ export class ChatHomeComponent implements OnInit, OnDestroy {
       .subscribe((user: User) => {
         this.user = user;
         if (user.userType === this.ACCT_EXEC) {
-          this.repollChatSessions();
+          this.pollChatSessions();
         }
         console.log('user', user);
       });
 
   }
 
-  repollChatSessions() {
+  pollChatSessions() {
     setTimeout(async () => {
       this.chatSessions = await this.chatService.getActiveChatSessions();
-      this.repollChatSessions();
+      this.pollChatSessions();
     }, 4000);
 
   }

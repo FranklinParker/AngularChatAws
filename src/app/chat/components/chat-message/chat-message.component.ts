@@ -31,10 +31,6 @@ export class ChatMessageComponent implements OnInit {
 
   async onSend() {
 
-    if (this.message && this.message.length > 0) {
-      this.messages += '\n' + this.message;
-      this.message = '';
-    }
     const chatSession: ChatSession = this.data.chatSession;
     const chatMessages: ChatMessage[] = [
       {
@@ -44,8 +40,12 @@ export class ChatMessageComponent implements OnInit {
         message: this.message
       }
     ];
-    await this.chatService.sendChatMessages(chatMessages, chatSession.id);
-
+    if (this.message && this.message.length > 0) {
+      this.messages += '\n' + this.message;
+      this.message = '';
+    }
+    const sendResult  = await this.chatService.sendChatMessages(chatMessages, chatSession.id);
+    console.log('send result', sendResult);
   }
 
 }
