@@ -15,6 +15,7 @@ import {Subscription} from 'rxjs';
   styleUrls: ['./chat-home.component.scss']
 })
 export class ChatHomeComponent implements OnInit, OnDestroy {
+  ACCT_EXEC = 'AcctExec';
   leftNavOpen = true;
   user: User;
   chatSessions: ChatSession[] = [];
@@ -25,7 +26,7 @@ export class ChatHomeComponent implements OnInit, OnDestroy {
   }
 
   get isAccountExec() {
-    return this.user && this.user.userType === 'AcctExec';
+    return this.user && this.user.userType === this.ACCT_EXEC;
   }
 
   ngOnDestroy(): void {
@@ -34,11 +35,22 @@ export class ChatHomeComponent implements OnInit, OnDestroy {
 
   async ngOnInit() {
     this.chatSessions = await this.chatService.getActiveChatSessions();
-    this.sub  = this.loginService.getLoggedInUserAsObservable()
+    this.sub = this.loginService.getLoggedInUserAsObservable()
       .subscribe((user: User) => {
         this.user = user;
+        if (user.userType === this.ACCT_EXEC) {
+           this.repollChatSessions();
+        }
         console.log('user', user);
       });
+
+  }
+
+  repollChatSessions() {
+    setTimeout(async () => {
+      this.chatSessions = await this.chatService.getActiveChatSessions();
+      this.repollChatSessions();
+    }, 2000);
 
   }
 
