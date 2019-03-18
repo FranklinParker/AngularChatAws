@@ -1,5 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {UUID} from 'angular2-uuid';
+
 import {ChatSession} from '../../models/chatSession';
 import {ChatService} from '../../services/chat.service';
 import {ChatMessage} from '../../models/chatMessage';
@@ -35,30 +37,40 @@ export class ChatMessageComponent implements OnInit {
   pollChatSession() {
     setTimeout(async () => {
       const newChatSess = await this.chatService.getChatSessionById(this.chatSession.id);
-      console.log('got new Chat Session messages', newChatSess.messages);
-      this.addNewMessages(newChatSess.messages);
+      if (newChatSess.messages) {
+        this.addNewMessages(newChatSess.messages);
+      }
       this.pollChatSession();
 
     }, 5000);
   }
 
   addNewMessages(messages: ChatMessage[]) {
+    if (!this.chatSession.messages) {
+      this.chatSession.messages = [];
+    }
     messages.forEach((chatMessage: ChatMessage) => {
-      this.messages += '\n' + chatMessage.sender + ': ' +
-        chatMessage.message;
+      const matchMessage = this.chatSession.messages.find((mess: ChatMessage) => mess.id === chatMessage.id);
+      console.log('match', matchMessage);
+      if (!matchMessage) {
+        this.messages += '\n' + chatMessage.sender + ': ' +
+          chatMessage.message;
+        this.chatSession.messages.push(chatMessage);
+      }
     });
   }
 
   async onSend() {
-
-    const chatMessages: ChatMessage[] = [
-      {
-        id: 0,
-        sender: this.data.isAccountManager ? this.chatSession.chatResponderName :
-          this.chatSession.chatInitiatorName,
-        message: this.message
-      }
-    ];
+    const chatMessage: ChatMessage = {
+      id: UUID.UUID(),
+      sender: this.data.isAccountManager ? this.chatSession.chatResponderName :
+        this.chatSession.chatInitiatorName,
+      message: this.message
+    };
+    const chatMessages: ChatMessage[] =
+      this.chatSession.messages && this.chatSession.messages.length > 0
+        ? Object.assign({}, this.chatSession.messages) : [];
+    chatMessages.push(chatMessage);
     if (this.message && this.message.length > 0) {
       const sendResult = await this.chatService.sendChatMessages(chatMessages, this.chatSession.id);
       console.log('send result', sendResult);
