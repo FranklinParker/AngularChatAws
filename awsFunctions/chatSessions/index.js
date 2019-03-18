@@ -19,7 +19,8 @@ const dynamo = new doc.DynamoDB();
  * DynamoDB API as a JSON body.
  */
 exports.handler = (event, context, callback) => {
-    //console.log('Received event:', JSON.stringify(event, null, 2));
+    console.log('Received event:', JSON.stringify(event, null, 2));
+    console.log('queryString:', event.queryStringParameters);
 
     const done = (err, res) => callback(null, {
         statusCode: err ? '400' : '200',
@@ -71,17 +72,30 @@ exports.handler = (event, context, callback) => {
             dynamo.deleteItem(paramsDel, done);
             break;
         case 'GET':
-            dynamo.scan({ TableName: 'ChatSessions' }, getFilter);
+            if(event.queryStringParameters && event.queryStringParameters.id){
+                console.log('get Id Sent:' + event.queryStringParameters.id);
+                let findById = {
+                    TableName: "ChatSessions",
+                    Key: {
+                        "id": event.queryStringParameters.id
+                    }
+                };
+                dynamo.getItem(findById, done);
+            }else{
+                console.log('getting all chats');
+                dynamo.scan({ TableName: 'ChatSessions' }, getFilter);
+            }
             break;
         case 'POST':
             console.log('event.body', event.body);
             const chatSession = JSON.parse(event.body);
             let newChatSession = {
                 Item: {
-                    "id":  chatSession.id,
+                    "id": chatSession.id,
                     "chatInitiatorName": chatSession.chatInitiatorName,
                     "chatResponderName": "NONE",
                     "chatSessionActive": false
+
                 },
                 TableName: "ChatSessions"
             };
