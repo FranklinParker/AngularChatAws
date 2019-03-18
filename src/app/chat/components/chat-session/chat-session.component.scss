@@ -3,5 +3,22 @@
 }
 
 mat-card-content{
-  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  justify-items: center;
+  align-content: center;
+
+  height: 33vh;
+}
+
+p{
+  margin-left: 20%;
+  font-size: 1.5rem;
+  font-weight: 400;
+
+}
+
+mat-action-row{
+  margin-left: 30%;
 }
