@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {ChatSession} from '../models/chatSession';
+import {User} from '../../shared/models/user';
 
 /**
  *
@@ -52,13 +53,13 @@ export class ChatService {
 
   }
 
-  public async takeChat(chatSession: ChatSession) {
+  public async takeChat(chatSession: ChatSession, user: User) {
     try {
       const response = await
         this.httpClient.put<any>(this.url,
           {
             id: chatSession.id,
-            chatResponderName: chatSession.chatResponderName
+            chatResponderName: user.name
           }).toPromise();
       return response;
 

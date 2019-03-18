@@ -1,6 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ChatService} from '../../services/chat.service';
 import {ChatSession} from '../../models/chatSession';
+import {User} from '../../../shared/models/user';
+import {LoginService} from '../../../shared/services/login.service';
+import {Subscription} from 'rxjs';
 
 /**
  *
@@ -11,15 +14,31 @@ import {ChatSession} from '../../models/chatSession';
   templateUrl: './chat-home.component.html',
   styleUrls: ['./chat-home.component.scss']
 })
-export class ChatHomeComponent implements OnInit {
+export class ChatHomeComponent implements OnInit, OnDestroy {
   leftNavOpen = true;
+  user: User;
   chatSessions: ChatSession[] = [];
+  sub: Subscription;
 
-  constructor(private chatService: ChatService) {
+  constructor(private chatService: ChatService,
+              private loginService: LoginService) {
+  }
+
+  get isAccountExec() {
+    return this.user && this.user.userType === 'AcctExec';
+  }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
 
   async ngOnInit() {
     this.chatSessions = await this.chatService.getActiveChatSessions();
+    this.sub  = this.loginService.getLoggedInUserAsObservable()
+      .subscribe((user: User) => {
+        this.user = user;
+        console.log('user', user);
+      });
 
   }
 

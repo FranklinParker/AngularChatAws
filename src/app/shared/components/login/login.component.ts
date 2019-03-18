@@ -20,7 +20,5 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.loginService.login(this.name, this.userType);
     this.router.navigateByUrl('/chat');
-
-
   }
 }
