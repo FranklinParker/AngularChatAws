@@ -1,0 +1,50 @@
+<div class="container">
+    <div *ngIf="leftNavOpen" class="left-menu">
+
+        <button class="left-menu__button" mat-button>View Chats</button>
+        <button class="left-menu__button" mat-button>Find</button>
+        <button (click)="onLeftNavClose()"
+                mat-icon-button
+                class="left-menu__close-button">
+            <svg class="left-menu__close-icon">
+                <use xlink:href="../../../../assets/icons/icons.svg#icon-arrow-with-circle-left"></use>
+            </svg>
+        </button>
+    </div>
+    <div *ngIf="!leftNavOpen" class="left-menu-closed">
+        <button mat-ripple
+                (click)="onLeftNavOpen()"
+                class="left-menu-closed__open-button" mat-icon-button>
+            <svg class="left-menu-closed__open-icon">
+                <use xlink:href="../../../../assets/icons/icons.svg#icon-circle-with-plus"></use>
+            </svg>
+        </button>
+    </div>
+    <div class="content-acct-exec" *ngIf="isAccountExec">
+        <ng-container *ngIf="chatSessions.length>0">
+            <app-chat-session *ngFor="let chatSession of chatSessions"
+                              [user]="user"
+                              [chatSession]="chatSession">
+            </app-chat-session>
+        </ng-container>
+        <ng-container *ngIf="chatSessions.length===0">
+            <h1 class="waiting-for-chats">Waiting for Chat requests</h1>
+        </ng-container>
+
+    </div>
+    <div class="content-client" *ngIf="!isAccountExec">
+        <ng-container *ngIf="!requestChatUid">
+            <h3 *ngIf="user" class="content-client__title">Welcome {{user.name}}</h3>
+            <button (click)="onRequestChat()"
+                    mat-raised-button class="content-client__request-chat-btn">
+                Request Chat
+            </button>
+        </ng-container>
+        <ng-container *ngIf="requestChatUid">
+            <mat-spinner></mat-spinner>
+            <h1 class="content-client__waiting">Waiting for Chat to be accepted</h1>
+        </ng-container>
+
+    </div>
+
+</div>

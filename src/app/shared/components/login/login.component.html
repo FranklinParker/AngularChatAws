@@ -1,0 +1,41 @@
+<div class="container">
+  <mat-card>
+    <mat-card-content>
+
+      <form (submit)="onSubmit(form)"
+            fxLayout="column"
+            fxLayoutAlign="center center"
+            fxLayoutGap="10px"
+            #form="ngForm">
+        <mat-form-field class="name">
+          <input matInput [(ngModel)]="name"
+                 name="name"
+                 #emailField="ngModel"
+                 placeholder="Enter Name"
+                 required>
+          <mat-error *ngIf="emailField.invalid">Name Required</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select placeholder="Type User"
+                      [(ngModel)]="userType"
+                      required
+                      name="userType">
+            <mat-option
+                    value="AcctExec">Account Executive</mat-option>
+            <mat-option
+                    value="Client">Client</mat-option>
+
+          </mat-select>
+        </mat-form-field>
+        <mat-action-row>
+          <button mat-raised-button
+                  color="primary"
+                  [disabled]="form.invalid">Login
+          </button>
+        </mat-action-row>
+      </form>
+
+    </mat-card-content>
+  </mat-card>
+
+</div>

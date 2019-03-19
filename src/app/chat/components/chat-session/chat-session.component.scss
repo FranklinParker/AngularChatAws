@@ -1,0 +1,25 @@
+:host{
+  height: 50vh;
+}
+
+mat-card-content{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  justify-items: center;
+  align-content: center;
+  background-color: rgba(211, 211, 211, 0.75);
+
+  height: 33vh;
+}
+
+p{
+  margin-left: 20%;
+  font-size: 1.5rem;
+  font-weight: 400;
+
+}
+
+mat-action-row{
+  margin-left: 30%;
+}

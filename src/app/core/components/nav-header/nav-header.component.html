@@ -30,32 +30,20 @@
     <ng-container *ngIf="loggedInUser">
       <ul fxLayout fxLayoutGap="10px" class="navigation-list-items">
         <li><a routerLink="/" mat-button
-               routerLinkActive="mat-accent">Home</a>
+               routerLinkActive="mat-accent"
+               [routerLinkActiveOptions]="{exact:true}">Home</a>
+        </li>
+      </ul>
+      <ul fxLayout fxLayoutGap="10px" class="navigation-list-items">
+        <li><a routerLink="/chat" mat-button
+               routerLinkActive="mat-accent">Chat</a>
         </li>
       </ul>
       <ul fxLayout fxLayoutGap="10px" class="navigation-list-items">
         <li><a mat-stroked-button (click)="onLogout()">Logout</a>
         </li>
       </ul>
-      <ul fxLayout
-          fxLayoutGap="10px"
-          class="navigation-list-items">
-        <li>
-          <a mat-button [matMenuTriggerFor]="demoMenu">Demos</a>
-          <mat-menu #demoMenu="matMenu"
-                    [overlapTrigger]="false">
-            <mat-label mat-menu-item routerLink="/message">
-              <mat-icon>picture_in_picture</mat-icon>
-              Chat
-            </mat-label>
-            <mat-label mat-menu-item routerLink="/">
-              <mat-icon>Home</mat-icon>
-              Home
-            </mat-label>
 
-          </mat-menu>
-        </li>
-      </ul>
     </ng-container>
 
   </div>

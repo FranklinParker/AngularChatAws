@@ -1,7 +1,8 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {
-  MatInputModule, MatCardModule,
+  MatInputModule,
+  MatCardModule,
   MatButtonModule,
   MatToolbarModule,
   MatExpansionModule,
@@ -17,7 +18,8 @@ import {
   MatSortModule,
   MatMenuModule,
   MatTooltipModule,
-  MatSelectModule, MatCheckboxModule
+  MatSelectModule,
+  MatCheckboxModule
 } from '@angular/material';
 import {LayoutModule} from '@angular/cdk/layout';
 
@@ -51,4 +53,5 @@ import {LayoutModule} from '@angular/cdk/layout';
   ]
 
 })
-export class MaterialModule { }
+export class MaterialModule {
+}
