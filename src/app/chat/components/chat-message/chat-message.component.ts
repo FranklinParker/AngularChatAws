@@ -89,7 +89,6 @@ export class ChatMessageComponent implements OnInit {
   async onClose() {
     if (this.chatSession.chatSessionActive) {
       await this.chatService.quitChat(this.chatSession);
-
     }
     this.dialogRef.close({client: true});
   }
