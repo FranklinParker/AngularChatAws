@@ -1,51 +1,70 @@
 <div class="container">
-    <ng-container *ngIf="data.isAccountManager">
-        <div class="container__header">
-            <h2 class="container__header__message">
-                Chat with: {{data.chatSession.chatInitiatorName}}
-            </h2>
-            <button mat-button
-                    mat-raised-button
-                    color="warn"
-                    (click)="onClose()"
-                    class="container__header__close-btn">
-                End Chat</button>
-        </div>
-    </ng-container>
-    <ng-container *ngIf="!data.isAccountManager">
-        <div class="container__header">
-            <h2 class="container__header__message">
-                Your Chat Responder: {{data.chatSession.chatResponderName}}
-            </h2>
+    <div class="container__confirm-close" *ngIf="closeRequested">
+        <h2>Are you Sure you want to Terminate Chat?</h2>
+        <mat-action-row>
             <button mat-raised-button
                     color="warn"
-                    (click)="onClose()"
-                    class="container__header__close-btn">
-                End Chat</button>
-        </div>
-    </ng-container>
-    <textarea matInput
-              readonly
-              matTextareaAutosize
-              matAutosizeMinRows="10"
-              matAutosizeMaxRows="15"
-              class="container__messages"
-              [(ngModel)]="messages">
+                    (click)="onCloseConfirm()">Yes
+            </button>
+            <button mat-raised-button
+                    color="accent"
+                    (click)="onCancelClose()">Cancel
+            </button>
+        </mat-action-row>
+    </div>
+
+    <ng-container *ngIf="!closeRequested">
+        <ng-container *ngIf="data.isAccountManager">
+            <div class="container__header">
+                <h2 class="container__header__message">
+                    Chat with: {{data.chatSession.chatInitiatorName}}
+                </h2>
+                <button mat-button
+                        mat-raised-button
+                        color="warn"
+                        (click)="onClose()"
+                        class="container__header__close-btn">
+                    End Chat
+                </button>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="!data.isAccountManager">
+            <div class="container__header">
+                <h2 class="container__header__message">
+                    Your Chat Responder: {{data.chatSession.chatResponderName}}
+                </h2>
+                <button mat-raised-button
+                        color="warn"
+                        (click)="onClose()"
+                        class="container__header__close-btn">
+                    End Chat
+                </button>
+            </div>
+        </ng-container>
+        <textarea matInput
+                  readonly
+                  matTextareaAutosize
+                  matAutosizeMinRows="10"
+                  matAutosizeMaxRows="15"
+                  class="container__messages"
+                  [(ngModel)]="messages">
 
     </textarea>
-    <div class="container__text-container">
-        <input matInput
-               name="message"
-               placeholder="Enter Message"
-               (keyup.enter)="onSend()"
-               [disabled]="!chatSession.chatSessionActive"
-               [(ngModel)]="message">
-        <button mat-raised-button
-                [disabled]="!sendAllowed"
-                (click)="onSend()"
-                class="container__button">Send
-        </button>
-    </div>
+        <div class="container__text-container">
+            <input matInput
+                   name="message"
+                   placeholder="Enter Message"
+                   (keyup.enter)="onSend()"
+                   [disabled]="!chatSession.chatSessionActive"
+                   [(ngModel)]="message">
+            <button mat-raised-button
+                    [disabled]="!sendAllowed"
+                    (click)="onSend()"
+                    class="container__button">Send
+            </button>
+        </div>
+    </ng-container>
+
 </div>
 
 

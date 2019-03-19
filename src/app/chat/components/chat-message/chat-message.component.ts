@@ -15,6 +15,7 @@ export class ChatMessageComponent implements OnInit {
   messages = 'Begin Chat';
   chatSession: ChatSession;
   message: string;
+  closeRequested = false;
 
   constructor(@Inject(MAT_DIALOG_DATA)
               public data: {
@@ -88,8 +89,18 @@ export class ChatMessageComponent implements OnInit {
 
   async onClose() {
     if (this.chatSession.chatSessionActive) {
-      await this.chatService.quitChat(this.chatSession);
+      this.closeRequested = true;
+    } else {
+      this.dialogRef.close({client: true});
     }
+  }
+
+  async onCloseConfirm() {
+    await this.chatService.quitChat(this.chatSession);
     this.dialogRef.close({client: true});
+  }
+
+  onCancelClose(){
+    this.closeRequested = false;
   }
 }

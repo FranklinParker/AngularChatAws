@@ -1,6 +1,14 @@
+
+
 .container{
   display: flex;
   flex-direction: column;
+  &__confirm-close{
+    flex: 1 1 100%;
+    flex-direction: column;
+    display: flex;
+    font-size: 2rem;
+  }
   &__header{
     font-size: 1.5rem;
     height: available;
@@ -52,3 +60,15 @@ input{
   font-size: 1.5rem;
   padding: 3px;
 }
+
+.confirm-close{
+  flex: 1;
+  z-index: 10;
+  opacity: .9;
+  top: 0;
+  left: 0;
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+
