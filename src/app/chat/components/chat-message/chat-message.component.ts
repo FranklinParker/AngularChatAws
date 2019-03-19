@@ -78,4 +78,8 @@ export class ChatMessageComponent implements OnInit {
     }
   }
 
+
+  onClose() {
+    this.dialogRef.close({client: true});
+  }
 }

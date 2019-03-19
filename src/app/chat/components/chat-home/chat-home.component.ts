@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {MatDialog} from '@angular/material';
+import {MatDialog, MatDialogRef} from '@angular/material';
 import {Subscription} from 'rxjs';
 import {UUID} from 'angular2-uuid';
 
@@ -76,13 +76,16 @@ export class ChatHomeComponent implements OnInit, OnDestroy {
       const chatSess: ChatSession = await this.chatService.getChatSessionById(this.requestChatUid);
       if (chatSess.chatSessionActive) {
         this.requestChatUid = undefined;
-        this.matDialog.open(ChatMessageComponent, {
+        const dialogRef = this.matDialog.open(ChatMessageComponent, {
           data: {
             chatSession: chatSess,
             isAccountManager: false
           },
           width: '85%',
           disableClose: true
+        });
+        dialogRef.afterClosed().subscribe(() => {
+          alert('closed');
         });
       } else {
         this.pollChatSession();

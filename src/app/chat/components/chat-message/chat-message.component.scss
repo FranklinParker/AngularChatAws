@@ -1,8 +1,22 @@
 .container{
+  display: flex;
+  flex-direction: column;
   &__header{
     font-size: 1.5rem;
+    height: available;
+    display: flex;
+    flex-direction: row;
+    flex: 1;
     font-weight: 500;
-
+    margin-bottom: 10px;
+    &__message{
+      flex:1 1 80%;
+    }
+    &__close-btn{
+      flex: 1;
+      height: 80%;
+      margin-top: 13px;
+    }
   }
   &__messages{
     background-color: rgba(225, 225, 225, 0.82);
@@ -30,6 +44,7 @@
     font-size: 1.5rem;
     line-height: 30px;
   }
+
 }
 input{
   flex: 1 1 80%;
