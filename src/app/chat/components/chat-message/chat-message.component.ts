@@ -67,9 +67,12 @@ export class ChatMessageComponent implements OnInit {
         this.chatSession.chatInitiatorName,
       message: this.message
     };
-    const chatMessages: ChatMessage[] =
-      this.chatSession.messages && this.chatSession.messages.length > 0
-        ? Object.assign({}, this.chatSession.messages) : [];
+
+    const chatMessages = [];
+    this.chatSession.messages.forEach((chatMess: ChatMessage) => {
+      chatMessages.push(chatMess);
+    })
+    console.log('chatMessages:', chatMessages);
     chatMessages.push(chatMessage);
     if (this.message && this.message.length > 0) {
       const sendResult = await this.chatService.sendChatMessages(chatMessages, this.chatSession.id);

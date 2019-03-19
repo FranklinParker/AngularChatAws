@@ -72,7 +72,7 @@ export class ChatService {
               chatResponderName: item['chatResponderName'],
               chatInitiatorName: item['chatInitiatorName'],
               chatSessionActive: item['chatSessionActive'],
-              messages: item['messages']
+              messages: item['messages'] ? item['messages'] : []
             };
             return chatSess;
           })).toPromise();
