@@ -24,6 +24,7 @@ export class ChatMessageComponent implements OnInit {
               public dialogRef: MatDialogRef<any>,
               private chatService: ChatService) {
     this.chatSession = data.chatSession;
+    this.chatSession.chatSessionActive = true;
   }
 
   get sendAllowed() {
@@ -38,6 +39,7 @@ export class ChatMessageComponent implements OnInit {
     setTimeout(async () => {
       const newChatSess = await this.chatService.getChatSessionById(this.chatSession.id);
       if (newChatSess.chatSessionActive === false) {
+        this.chatSession.chatSessionActive = false;
         this.messages += '\n Chat has been terminated on other Side';
       } else {
         if (newChatSess.messages) {
@@ -85,7 +87,10 @@ export class ChatMessageComponent implements OnInit {
 
 
   async onClose() {
-    await this.chatService.quitChat(this.chatSession);
+    if (this.chatSession.chatSessionActive) {
+      await this.chatService.quitChat(this.chatSession);
+
+    }
     this.dialogRef.close({client: true});
   }
 }

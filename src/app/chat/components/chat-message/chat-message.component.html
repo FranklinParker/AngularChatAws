@@ -38,6 +38,7 @@
                name="message"
                placeholder="Enter Message"
                (keyup.enter)="onSend()"
+               [disabled]="!chatSession.chatSessionActive"
                [(ngModel)]="message">
         <button mat-raised-button
                 [disabled]="!sendAllowed"
