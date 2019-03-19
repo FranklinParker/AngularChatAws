@@ -8,6 +8,12 @@
     flex-direction: column;
     display: flex;
     font-size: 2rem;
+    &__action_row{
+      flex: 1;
+      display: flex;
+      align-content: space-evenly;
+    }
+
   }
   &__header{
     font-size: 1.5rem;
@@ -72,3 +78,6 @@ input{
   height: 100vh;
 }
 
+.confirm-btn{
+  margin: 20px;
+}

@@ -1,16 +1,17 @@
 <div class="container">
     <div class="container__confirm-close" *ngIf="closeRequested">
         <h2>Are you Sure you want to Terminate Chat?</h2>
-        <mat-action-row>
-            <button mat-raised-button
+        <div class="container__confirm-close__action-row">
+            <button class="confirm-btn" mat-raised-button
                     color="warn"
                     (click)="onCloseConfirm()">Yes
             </button>
             <button mat-raised-button
-                    color="accent"
+                    class="confirm-btn"
+                    color="primary"
                     (click)="onCancelClose()">Cancel
             </button>
-        </mat-action-row>
+        </div>
     </div>
 
     <ng-container *ngIf="!closeRequested">
