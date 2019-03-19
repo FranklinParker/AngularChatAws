@@ -93,7 +93,8 @@ export class ChatService {
         this.httpClient.put<any>(this.url,
           {
             id: chatSession.id,
-            chatResponderName: user.name
+            chatResponderName: user.name,
+            chatSessionActive: true
           }).toPromise();
       return response;
 
@@ -104,6 +105,26 @@ export class ChatService {
 
 
   }
+
+  public async quitChat(chatSession: ChatSession) {
+    try {
+      const response = await
+        this.httpClient.put<any>(this.url,
+          {
+            id: chatSession.id,
+            chatResponderName: chatSession.chatResponderName,
+            chatSessionActive: false
+          }).toPromise();
+      return response;
+
+    } catch (e) {
+      console.log('error getting messages', e);
+      return [];
+    }
+
+
+  }
+
 
 
   public async requestChat(name: string, uid: string) {
