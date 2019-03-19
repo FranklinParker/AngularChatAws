@@ -15,7 +15,6 @@ export class ChatMessageComponent implements OnInit {
   messages = 'Begin Chat';
   chatSession: ChatSession;
   message: string;
-  pollCount = 0;
 
   constructor(@Inject(MAT_DIALOG_DATA)
               public data: {
@@ -38,10 +37,7 @@ export class ChatMessageComponent implements OnInit {
   pollChatSession() {
     setTimeout(async () => {
       const newChatSess = await this.chatService.getChatSessionById(this.chatSession.id);
-      console.log(`pollCount :${this.pollCount}:  newChatSess`, newChatSess);
-      this.pollCount++;
-      if (this.chatSession.chatSessionActive === false
-         && this.pollCount > 3) {
+      if (newChatSess.chatSessionActive === false) {
         this.messages += '\n Chat has been terminated on other Side';
       } else {
         if (newChatSess.messages) {
