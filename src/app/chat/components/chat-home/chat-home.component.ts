@@ -1,8 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material';
-import {UUID} from 'angular2-uuid';
 import {Subscription} from 'rxjs';
-
+import {UUID} from 'angular2-uuid';
 
 import {ChatService} from '../../services/chat.service';
 import {ChatSession} from '../../models/chatSession';
@@ -94,6 +93,10 @@ export class ChatHomeComponent implements OnInit, OnDestroy {
 
   onLeftNavOpen() {
     this.leftNavOpen = true;
+  }
+
+  onNotImplemented() {
+    alert('Feature Not Implemented');
   }
 
 }

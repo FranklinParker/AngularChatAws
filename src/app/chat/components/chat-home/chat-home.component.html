@@ -1,8 +1,12 @@
 <div class="container">
     <div *ngIf="leftNavOpen" class="left-menu">
 
-        <button class="left-menu__button" mat-button>View Chats</button>
-        <button class="left-menu__button" mat-button>Find</button>
+        <button class="left-menu__button"
+                (click)="onNotImplemented()"
+                mat-button>View Chat Archives</button>
+        <button class="left-menu__button"
+                (click)="onNotImplemented()"
+                mat-button>Find Chat</button>
         <button (click)="onLeftNavClose()"
                 mat-icon-button
                 class="left-menu__close-button">
