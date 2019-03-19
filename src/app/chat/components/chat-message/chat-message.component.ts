@@ -51,7 +51,6 @@ export class ChatMessageComponent implements OnInit {
     }
     messages.forEach((chatMessage: ChatMessage) => {
       const matchMessage = this.chatSession.messages.find((mess: ChatMessage) => mess.id === chatMessage.id);
-      console.log('match', matchMessage);
       if (!matchMessage) {
         this.messages += '\n' + chatMessage.sender + ': ' +
           chatMessage.message;
@@ -72,13 +71,9 @@ export class ChatMessageComponent implements OnInit {
     this.chatSession.messages.forEach((chatMess: ChatMessage) => {
       chatMessages.push(chatMess);
     })
-    console.log('chatMessages:', chatMessages);
     chatMessages.push(chatMessage);
     if (this.message && this.message.length > 0) {
       const sendResult = await this.chatService.sendChatMessages(chatMessages, this.chatSession.id);
-      console.log('send result', sendResult);
-
-      this.messages += '\n' + this.message;
       this.message = '';
     }
   }
