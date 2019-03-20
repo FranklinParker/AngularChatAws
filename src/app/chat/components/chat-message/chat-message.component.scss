@@ -2,6 +2,7 @@
 
 .container{
   display: flex;
+  flex-wrap: wrap;
   flex-direction: column;
   &__confirm-close{
     flex: 1 1 100%;
@@ -31,7 +32,19 @@
       height: 80%;
       margin-top: 13px;
     }
+    @media only screen and (max-width: 700px) {
+      &__message{
+        flex:1 1 55%;
+      }
+      &__close-btn{
+        flex: 1;
+        font-size: .8rem;
+        height: 80%;
+        margin-top: 14px;
+      }
+    }
   }
+
   &__messages{
     background-color: rgba(225, 225, 225, 0.82);
     font-size: 1.5rem;

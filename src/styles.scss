@@ -8,11 +8,20 @@ html{
   transition: all 400ms;
 }
 
+
 @media only screen and (max-width: 700px) {
   html{
     font-size: 50%;
   }
 }
+
+@media only screen and (max-width: 600px) {
+  html{
+    font-size: 33%;
+  }
+}
+
+
 
 
 
