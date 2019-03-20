@@ -15,6 +15,7 @@ export class ChatMessageComponent implements OnInit {
   messages = 'Begin Chat';
   chatSession: ChatSession;
   message: string;
+  closeRequested = false;
 
   constructor(@Inject(MAT_DIALOG_DATA)
               public data: {
@@ -24,6 +25,7 @@ export class ChatMessageComponent implements OnInit {
               public dialogRef: MatDialogRef<any>,
               private chatService: ChatService) {
     this.chatSession = data.chatSession;
+    this.chatSession.chatSessionActive = true;
   }
 
   get sendAllowed() {
@@ -37,12 +39,18 @@ export class ChatMessageComponent implements OnInit {
   pollChatSession() {
     setTimeout(async () => {
       const newChatSess = await this.chatService.getChatSessionById(this.chatSession.id);
-      if (newChatSess.messages) {
-        this.addNewMessages(newChatSess.messages);
+      if (newChatSess.chatSessionActive === false) {
+        this.chatSession.chatSessionActive = false;
+        this.messages += '\n Chat has been terminated on other Side';
+      } else {
+        if (newChatSess.messages) {
+          this.addNewMessages(newChatSess.messages);
+        }
+        this.pollChatSession();
       }
-      this.pollChatSession();
 
-    }, 5000);
+
+    }, 3000);
   }
 
   addNewMessages(messages: ChatMessage[]) {
@@ -78,4 +86,21 @@ export class ChatMessageComponent implements OnInit {
     }
   }
 
+
+  async onClose() {
+    if (this.chatSession.chatSessionActive) {
+      this.closeRequested = true;
+    } else {
+      this.dialogRef.close({client: true});
+    }
+  }
+
+  async onCloseConfirm() {
+    await this.chatService.quitChat(this.chatSession);
+    this.dialogRef.close({client: true});
+  }
+
+  onCancelClose(){
+    this.closeRequested = false;
+  }
 }

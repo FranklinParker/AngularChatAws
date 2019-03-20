@@ -1,8 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {MatDialog} from '@angular/material';
-import {UUID} from 'angular2-uuid';
+import {MatDialog, MatDialogRef} from '@angular/material';
 import {Subscription} from 'rxjs';
-
+import {UUID} from 'angular2-uuid';
 
 import {ChatService} from '../../services/chat.service';
 import {ChatSession} from '../../models/chatSession';
@@ -57,7 +56,7 @@ export class ChatHomeComponent implements OnInit, OnDestroy {
     setTimeout(async () => {
       this.chatSessions = await this.chatService.getActiveChatSessions();
       this.pollChatSessions();
-    }, 4000);
+    }, 6000);
 
   }
 
@@ -77,7 +76,7 @@ export class ChatHomeComponent implements OnInit, OnDestroy {
       const chatSess: ChatSession = await this.chatService.getChatSessionById(this.requestChatUid);
       if (chatSess.chatSessionActive) {
         this.requestChatUid = undefined;
-        this.matDialog.open(ChatMessageComponent, {
+        const dialogRef = this.matDialog.open(ChatMessageComponent, {
           data: {
             chatSession: chatSess,
             isAccountManager: false
@@ -85,15 +84,21 @@ export class ChatHomeComponent implements OnInit, OnDestroy {
           width: '85%',
           disableClose: true
         });
+        dialogRef.afterClosed().subscribe(() => {
+        });
       } else {
         this.pollChatSession();
       }
 
-    }, 5000);
+    }, 6000);
   }
 
   onLeftNavOpen() {
     this.leftNavOpen = true;
+  }
+
+  onNotImplemented() {
+    alert('Feature Not Implemented');
   }
 
 }

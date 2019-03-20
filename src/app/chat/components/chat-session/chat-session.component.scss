@@ -1,5 +1,5 @@
 :host{
-  height: 50vh;
+  height: 30vh;
 }
 
 mat-card-content{
@@ -22,4 +22,12 @@ p{
 
 mat-action-row{
   margin-left: 30%;
+}
+
+
+@media only screen and (max-width: 700px) {
+  .btn-accept-chat{
+    font-size: 60%;
+    transform: scale(.7);
+  }
 }

@@ -44,7 +44,7 @@ exports.handler = (event, context, callback) => {
 
         } else{
             console.log('res', res);
-            let filteredItems = res.Items.filter(item=> !item.chatSessionActive);
+            let filteredItems = res.Items.filter(item=> !item.chatSessionActive && !item.chatSessionArchived);
             console.log('filteredItems',  filteredItems);
             res.Items = filteredItems;
             body = JSON.stringify(res)
@@ -126,10 +126,11 @@ exports.handler = (event, context, callback) => {
                     Key:{
                         "id": chatSessionUpdate.id,
                     },
-                    UpdateExpression: "set chatResponderName = :responder, chatSessionActive=:active",
+                    UpdateExpression: "set chatResponderName = :responder, chatSessionActive=:active, chatSessionArchived=:archive",
                     ExpressionAttributeValues:{
                         ":responder":chatSessionUpdate.chatResponderName,
-                        ":active":true
+                        ":active": chatSessionUpdate.chatSessionActive,
+                        ":archive": !chatSessionUpdate.chatSessionActive
                     },
                     TableName: "ChatSessions"
                 };

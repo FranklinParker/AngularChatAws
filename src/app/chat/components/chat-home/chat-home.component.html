@@ -1,8 +1,12 @@
 <div class="container">
     <div *ngIf="leftNavOpen" class="left-menu">
 
-        <button class="left-menu__button" mat-button>View Chats</button>
-        <button class="left-menu__button" mat-button>Find</button>
+        <button class="left-menu__button"
+                (click)="onNotImplemented()"
+                mat-button>View Chat Archives</button>
+        <button class="left-menu__button"
+                (click)="onNotImplemented()"
+                mat-button>Find Chat</button>
         <button (click)="onLeftNavClose()"
                 mat-icon-button
                 class="left-menu__close-button">
@@ -20,7 +24,10 @@
             </svg>
         </button>
     </div>
-    <div class="content-acct-exec" *ngIf="isAccountExec">
+    <div *ngIf="!user">
+        <mat-spinner></mat-spinner>
+    </div>
+    <div class="content-acct-exec" *ngIf="isAccountExec && user">
         <ng-container *ngIf="chatSessions.length>0">
             <app-chat-session *ngFor="let chatSession of chatSessions"
                               [user]="user"
@@ -32,10 +39,11 @@
         </ng-container>
 
     </div>
-    <div class="content-client" *ngIf="!isAccountExec">
+    <div class="content-client" *ngIf="!isAccountExec && user">
         <ng-container *ngIf="!requestChatUid">
             <h3 *ngIf="user" class="content-client__title">Welcome {{user.name}}</h3>
             <button (click)="onRequestChat()"
+                    color="primary"
                     mat-raised-button class="content-client__request-chat-btn">
                 Request Chat
             </button>
