@@ -39,10 +39,11 @@
         </ng-container>
 
     </div>
-    <div class="content-client" *ngIf="!isAccountExec &&user">
+    <div class="content-client" *ngIf="!isAccountExec && user">
         <ng-container *ngIf="!requestChatUid">
             <h3 *ngIf="user" class="content-client__title">Welcome {{user.name}}</h3>
             <button (click)="onRequestChat()"
+                    color="primary"
                     mat-raised-button class="content-client__request-chat-btn">
                 Request Chat
             </button>
