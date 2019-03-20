@@ -11,6 +11,8 @@ export class ChatMessageService {
   private chatSessionSubject: BehaviorSubject<ChatSession> =
     new BehaviorSubject<ChatSession>(null);
 
+  private polling = true;
+
   constructor(private chatService: ChatService) {
 
   }
@@ -20,15 +22,23 @@ export class ChatMessageService {
   }
 
   initChatSessionListener(chatSessionId: string) {
-     this.pollChatSessions(chatSessionId);
+    this.pollChatSessions(chatSessionId);
   }
 
-  private  pollChatSessions(chatSessionId: string) {
+  public shutDoneChatSessionListner() {
+    this.polling = false;
+  }
+
+  private pollChatSessions(chatSessionId: string) {
     setTimeout(async () => {
-      const chatSession: ChatSession =
-        await this.chatService.getChatSessionById(chatSessionId);
-      this.chatSessionSubject.next(chatSession);
-      this.pollChatSessions(chatSessionId);
+      if (this.polling) {
+        const chatSession: ChatSession =
+          await this.chatService.getChatSessionById(chatSessionId);
+        this.chatSessionSubject.next(chatSession);
+        console.log('polling chat session')
+        this.pollChatSessions(chatSessionId);
+
+      }
 
     }, 1000);
   }
