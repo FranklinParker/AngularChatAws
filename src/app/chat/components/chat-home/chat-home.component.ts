@@ -56,7 +56,7 @@ export class ChatHomeComponent implements OnInit, OnDestroy {
     setTimeout(async () => {
       this.chatSessions = await this.chatService.getActiveChatSessions();
       this.pollChatSessions();
-    }, 4000);
+    }, 6000);
 
   }
 
@@ -85,13 +85,12 @@ export class ChatHomeComponent implements OnInit, OnDestroy {
           disableClose: true
         });
         dialogRef.afterClosed().subscribe(() => {
-          alert('closed');
         });
       } else {
         this.pollChatSession();
       }
 
-    }, 5000);
+    }, 6000);
   }
 
   onLeftNavOpen() {
